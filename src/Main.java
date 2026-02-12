@@ -1,11 +1,17 @@
 public class Main {
     public static void main(String[] args) {
-        Repositorio repo = new RepositorioSoloLectura();
 
-        System.out.println("Buscando: " + repo.buscar(1));
+        Notificacion noti1 = new EmailNotificacion("Factura disponible");
+        noti1.enviar();
+        noti1.adjuntarArchivo("factura.pdf");
 
-        // ¡Aquí tronará el programa!
-        // Un cliente espera que 'guardar' funcione porque la interfaz lo prometió.
-        repo.guardar("Datos importantes");
+        System.out.println();
+
+        // Aquí ocurre el problema
+        Notificacion noti2 = new SMSNotificacion("Código de verificación");
+        noti2.enviar();
+
+        // Esto rompe el programa
+        noti2.adjuntarArchivo("archivo.txt");
     }
 }
